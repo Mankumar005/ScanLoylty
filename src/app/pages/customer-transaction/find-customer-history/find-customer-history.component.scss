@@ -1,0 +1,36 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.new-scan {
+  float: right;
+  text-transform: capitalize;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+  color: #1e6bb8;
+}
+
+.search-btn {
+  position: relative;
+  top: 26px;
+}
+
+.scannig-history {
+  font-size: 17px;
+  font-weight: 600 !important;
+  padding-left: 27px;
+}
+
+.note-text {
+  padding-left: 20px;
+}
+
+.stamp-list {
+  position: relative;
+  bottom: 60px;
+}

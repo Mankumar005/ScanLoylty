@@ -1,0 +1,103 @@
+<nb-card>
+  <nb-card-header class="page-title">
+    Customer Transaction History
+  </nb-card-header>
+  <nb-card-body class="title-border">
+    <form [formGroup]="customerTransactionForm" (keydown.enter)="$event.preventDefault()">
+      <div class="form-group row ">
+        <label class="label col-sm-2 form-control-label">Customer ID
+          <span class="required-input">*</span>
+        </label>
+        <div class="col-md-6">
+          <input type="text" trim="blur" formControlName="customer_unique_id" class="form-control" nbInput fullWidth
+            placeholder="Enter Customer ID" required>
+          <mat-error *ngFor="let validation of formValidations.customer_unique_id">
+            <p class="caption status-danger"
+              *ngIf="customerTransactionForm.get('customer_unique_id')?.hasError(validation.type) && (customerTransactionForm.get('customer_unique_id')?.dirty || customerTransactionForm.get('customer_unique_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row ">
+        <label class="label col-sm-2 form-control-label">
+        </label>
+        <div class="col-md-6">
+          <span>
+            <button nbButton [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+              nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+              Search
+            </button>
+          </span>
+          <span style="padding-left:20px;">
+            <button nbButton (click)="newSearch()">Clear</button>
+          </span>
+        </div>
+      </div>
+      <hr>
+    </form>
+    <form class="pt-1 pb-5" [formGroup]="findTransationForm" (keydown.enter)="$event.preventDefault()">
+      <div class="form-group row" *ngIf="isCompanyView">
+        <label class="label col-sm-2 form-control-label">Company
+          <span class="required-input">*</span>
+        </label>
+        <div class="col-md-6">
+          <ng-select [items]="companyList" bindLabel="company_name" (change)="getCompnayId($event)"
+            class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+            placeholder="Select Company" formControlName="company_id" required>
+          </ng-select>
+          <mat-error class="select-error-option" *ngFor="let validation of formValidations.company_id">
+            <p class="caption status-danger"
+              *ngIf="findTransationForm.get('company_id')?.hasError(validation.type) && (findTransationForm.get('company_id')?.dirty || findTransationForm.get('company_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="isBranchView">
+        <label class="label col-sm-2 form-control-label">Branch
+          <span class="required-input">*</span>
+        </label>
+        <div class="col-md-6">
+          <ng-select [items]="branchList" bindLabel="branch_name" (change)="getBranchId($event)" 
+            class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+            placeholder="Select Branch" formControlName="branch_id" required>
+          </ng-select>
+          <mat-error class="select-error-option" *ngFor="let validation of formValidations.branch_id">
+            <p class="caption status-danger"
+              *ngIf="findTransationForm.get('branch_id')?.hasError(validation.type) && (findTransationForm.get('branch_id')?.dirty || findTransationForm.get('branch_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="isCycleView">
+        <label class="label col-sm-2 form-control-label">Cycle
+          <span class="required-input">*</span>
+        </label>
+        <div class="col-md-6">
+          <ng-select [items]="cycleList" bindLabel="stamp_cycle_name" (change)="getCycleId($event)"
+            class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="customer_cycle_id"
+            placeholder="Select Cycle" formControlName="cycle_id" required>
+          </ng-select>
+          <mat-error class="select-error-option" *ngFor="let validation of formValidations.cycle_id">
+            <p class="caption status-danger"
+              *ngIf="findTransationForm.get('cycle_id')?.hasError(validation.type) && (findTransationForm.get('cycle_id')?.dirty || findTransationForm.get('cycle_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card *ngIf="isStampView" class="stamp-list">
+    <nb-card-header class="sub-title">
+      Stamp List
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect"
+        [settings]="stamp_settings" [source]="stampCycleSource">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</nb-card>

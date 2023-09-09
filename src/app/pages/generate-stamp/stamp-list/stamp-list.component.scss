@@ -1,0 +1,19 @@
+@import '../../../@theme/styles/styles.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+nb-select.appearance-outline.size-medium.status-basic.shape-rectangle.nb-transition {
+    padding-left: 10px;
+}
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted { color: #1e6bb8; }
+::ng-deep .edit-icon.pointer {
+  font-size: 29px;
+}
+::ng-deep.view-icon {
+  font-size: 29px;
+  margin-left: 15px !important;
+}
+}

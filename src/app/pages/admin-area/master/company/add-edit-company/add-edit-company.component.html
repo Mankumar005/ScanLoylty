@@ -1,0 +1,417 @@
+<nb-card>
+  <nb-card-header class="page-title">
+    {{companyId ? 'Edit Company' : 'Add Company'}} 
+   <span class="back-arow" (click)="back()">
+     <img src="assets/images/back-arow.png" height="15px" width="20px" /><span
+       class="back-text"
+       >Back To List</span
+     >
+   </span>
+ </nb-card-header>
+  <nb-card-body>
+      <nb-stepper>
+        <!-- step -1  Company Details-->
+        <nb-step [stepControl]="addEditCompanyForm" [label]="labelOne">
+          <form [formGroup]="addEditCompanyForm">
+          <ng-template #labelOne>Company Details</ng-template>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="lable country">Company Type</label>
+                <nb-select class="select" formControlName="company_type_id" placeholder="Select Company Type" required>
+                  <nb-option *ngFor="let compnay of companyTypeList" [value]="compnay.id">{{compnay.company_type_name}}
+                  </nb-option>
+                </nb-select>
+                <mat-error class="select-error" *ngFor="let validation of formValidations.company_type_id">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('company_type_id')?.hasError(validation.type) && (addEditCompanyForm.get('company_type_id')?.dirty || addEditCompanyForm.get('company_type_id')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Company Name</label>
+                <input type="text" trim="blur" maxlength="80" class="form-control" formControlName="company_name" nbInput fullWidth placeholder="Company Name" required>
+                <mat-error *ngFor="let validation of formValidations.company_name">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('company_name')?.hasError(validation.type) && (addEditCompanyForm.get('company_name')?.dirty || addEditCompanyForm.get('company_name')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Company GST No</label>
+                <input type="text" trim="blur"  class="form-control" formControlName="company_gst_no" nbInput fullWidth placeholder="Company GST No"
+                  required>
+                <mat-error *ngFor="let validation of formValidations.company_gst_no">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('company_gst_no')?.hasError(validation.type) && (addEditCompanyForm.get('company_gst_no')?.dirty || addEditCompanyForm.get('company_gst_no')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Email</label>
+                <input type="text" trim="blur"  class="form-control" formControlName="email" nbInput fullWidth placeholder="Email" required>
+                <mat-error *ngFor="let validation of formValidations.email">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('email')?.hasError(validation.type) && (addEditCompanyForm.get('email')?.dirty || addEditCompanyForm.get('email')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4 ">
+              <div class="form-group">
+                <label class="label">Phone</label>
+                <input type="text" trim="blur"  class="form-control" maxlength="10" min="0"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone" nbInput
+                  fullWidth placeholder="Phone" required>
+                <mat-error *ngFor="let validation of formValidations.phone">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('phone')?.hasError(validation.type) && (addEditCompanyForm.get('phone')?.dirty || addEditCompanyForm.get('phone')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+                <mat-error *ngIf="addEditCompanyForm.controls['phone'].hasError('pattern') ? false : addEditCompanyForm.controls['phone'].hasError('minlength')">
+                  <p class="caption status-danger">
+                    Number must be 10 characters long.
+                  </p>   
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="label country State">City</label>
+                <nb-select class="select" formControlName="city_id" *ngFor="let city of cityList" placeholder="City"
+                  required>
+                  <nb-option [value]="city.id">{{city.city_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.city_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditCompanyForm.get('city_id')?.hasError(validation.type) && (addEditCompanyForm.get('city_id')?.dirty || addEditCompanyForm.get('city_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="label country State">State</label>
+                <nb-select class="select" formControlName="state_id" *ngFor="let state of stateList" placeholder="State"
+                  required>
+                  <nb-option [value]="state.id">{{state.state_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.state_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditCompanyForm.get('state_id')?.hasError(validation.type) && (addEditCompanyForm.get('state_id')?.dirty || addEditCompanyForm.get('state_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="lable country">Country</label>
+                <nb-select class="select" formControlName="country_id" *ngFor="let country of countryList"
+                  placeholder="Country" required>
+                  <nb-option [value]="country.id">{{country.country_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.country_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditCompanyForm.get('country_id')?.hasError(validation.type) && (addEditCompanyForm.get('country_id')?.dirty || addEditCompanyForm.get('country_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row row-padding">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Company Address</label>
+                <input type="text" trim="blur" maxlength="245" class="form-control"  formControlName="company_address" nbInput fullWidth id="inputEmail"
+                  placeholder="Company Address" required>
+                <mat-error *ngFor="let validation of formValidations.company_address">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('company_address')?.hasError(validation.type) && (addEditCompanyForm.get('company_address')?.dirty || addEditCompanyForm.get('company_address')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Zip Code</label>
+                <input type="text" trim="blur"  class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                  formControlName="zip_code" nbInput fullWidth placeholder="Zip Code" required>
+                <mat-error *ngFor="let validation of formValidations.zip_code">
+                  <p class="caption status-danger"
+                    *ngIf="addEditCompanyForm.get('zip_code')?.hasError(validation.type) && (addEditCompanyForm.get('zip_code')?.dirty || addEditCompanyForm.get('zip_code')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group upload-btn">
+                <ng-container *ngIf="is_add">
+                  <button  *ngIf="is_add" nbButton status="primary" outline (click)="openUploadFileModal('addMode')">
+                    <span  class="m_title">{{isFileFound ? 'View files' : 'Choose files'}}</span>
+                  </button>
+                  <span *ngIf="!isFileFound">
+                    No file chosen
+                  </span>
+                <ng-container *ngIf="getFiles && isFileFound">
+                  <span>
+                    {{getFiles.length}} files uploaded
+                  </span>
+                </ng-container>
+                </ng-container>
+            
+                <ng-container *ngIf="companyId">
+                <button *ngIf="companyId" nbButton status="primary" size="small" outline (click)="openUploadFileModal('editMode')">
+                  <span class="m_title">{{fileList ? 'View files' : 'Choose files'}}</span>
+                </button>
+                <span *ngIf="!fileList">
+                  No file chosen
+                </span>
+                <span *ngIf="fileList">
+                  {{fileList}} files uploaded
+                </span>
+                </ng-container>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="company-next-btn">
+            <button nbButton disabled status="" nbStepperNext class="disabled-previous">BACK</button>
+            <span class="next-btn">
+              <button nbButton nbStepperNext  (click)="next('company_details')">NEXT</button>
+            </span>
+          </div>
+          <!-- <div class="company-next-btn" *ngIf="companyId">
+            <button nbButton >Update</button>
+          </div> -->
+       </form>
+        </nb-step>
+
+        <!--step -2 Person details -->
+        <nb-step [stepControl]="personDetailsForm" [label]="labelTwo">
+          <form [formGroup]="personDetailsForm">
+          <ng-template #labelTwo>Person Details</ng-template>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">Person Name</label>
+                <input type="text" trim="blur" maxlength="50" class="form-control" formControlName="contact_person_name" nbInput fullWidth placeholder="Person Name" required>
+                <mat-error *ngFor="let validation of formValidations.contact_person_name">
+                  <p class="caption status-danger"
+                    *ngIf="personDetailsForm.get('contact_person_name')?.hasError(validation.type) && (personDetailsForm.get('contact_person_name')?.dirty || personDetailsForm.get('contact_person_name')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Person Phone</label>
+                <input type="text" trim="blur"  class="form-control" maxlength="10" min="0"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="contact_phone"
+                  nbInput fullWidth placeholder="Person Phone"  required>
+                <mat-error *ngFor="let validation of formValidations.contact_phone">
+                  <p class="caption status-danger"
+                    *ngIf="personDetailsForm.get('contact_phone')?.hasError(validation.type) && (personDetailsForm.get('contact_phone')?.dirty || personDetailsForm.get('contact_phone')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+                <mat-error *ngIf="personDetailsForm.controls['contact_phone'].hasError('pattern') ? false : personDetailsForm.controls['contact_phone'].hasError('minlength')">
+                  <p class="caption status-danger">
+                    Number must be 10 characters long.
+                  </p>   
+                </mat-error>
+              </div>
+            </div>
+          </div>
+          <div class="prev-next-btn">
+            <button nbButton nbStepperPrevious >BACK</button>
+            <span class="next-btn">
+              <button nbButton nbStepperNext (click)="next('person_details')">NEXT</button>
+            </span>
+          </div>
+          </form>
+
+        </nb-step> 
+        
+        <!--step - 3 review & submit -->
+        <nb-step [label]="labelThird">
+          <ng-template #labelThird>Review & Submit</ng-template>
+          <p class="company-tilte label">Review & Submit</p>
+          <ng-container *ngIf="formData">
+            <nb-accordion>
+              <nb-accordion-item #item>
+                <nb-accordion-item-header>
+                  Company Details
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+
+                  <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Company Type</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.compant_Type}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Company Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.company_name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-titl label">Phone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.phone}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">GST No.</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.company_gst_no}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Address</p>
+                            <p class="text-muted mb-0">{{formData.company_address}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">Country</p>
+                            <p class="text-muted mb-0">{{formData.country_Name}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">State</p>
+                            <p class="text-muted mb-0">{{formData.state_Name}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">City</p>
+                            <p class="text-muted mb-0">{{formData.city_Name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Pin Code</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.zip_code}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Uploaded Files</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" *ngIf="is_add"> {{ getFiles  ? getFiles.length : 0 }} </p>
+                            <p class="text-muted mb-0" *ngIf="companyId"> {{ fileList  ? fileList : 0 }} </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <!-- person details -->
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  Person Details
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+
+                  <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Person Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.contact_person_name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Email</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.email}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Phone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.contact_phone}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+          </ng-container>
+          <div class="Update-Submit-btn">
+            <button nbButton nbStepperPrevious >BACK</button>
+            <span class="next-btn">
+              <button nbButton [disabled]="isLoading"  
+              [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+                {{companyId ? 'UPDATE' :'SAVE'}}
+              </button>
+            </span>
+          </div>
+        </nb-step>
+
+      </nb-stepper>
+
+  </nb-card-body>
+</nb-card>
+
+
+  

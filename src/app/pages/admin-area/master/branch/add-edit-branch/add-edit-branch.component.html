@@ -1,0 +1,542 @@
+<!-- stepr start -->
+<nb-card >
+  <nb-card-header class="page-title">
+     {{branchId ? 'Edit Branch' : 'Add Branch'}} 
+    <span class="back-arow" (click)="back()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" /><span
+        class="back-text"
+        >Back To List</span
+      >
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+      <nb-stepper>
+      <!-- step -1 Branch Details -->
+        <nb-step [stepControl]="addEditBranchForm" [label]="labelOne">
+         <form [formGroup]="addEditBranchForm" (keydown.enter)="$event.preventDefault()">
+          <ng-template #labelOne>Branch Details</ng-template>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="lable country">Company</label>
+                <nb-select class="select" formControlName="company_id" placeholder="Select Company" required>
+                  <nb-option *ngFor="let compnay of companyList" [value]="compnay.id">{{compnay.company_name}}
+                  </nb-option>
+                </nb-select>
+                <mat-error class="select-error" *ngFor="let validation of formValidations.company_id">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('company_id')?.hasError(validation.type) && (addEditBranchForm.get('company_id')?.dirty || addEditBranchForm.get('company_id')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Branch Name</label>
+                <input type="text" formControlName="branch_name" maxlength="100" trim="blur"  class="form-control" nbInput fullWidth placeholder="Branch Name" required>
+                <mat-error *ngFor="let validation of formValidations.branch_name">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('branch_name')?.hasError(validation.type) && (addEditBranchForm.get('branch_name')?.dirty || addEditBranchForm.get('branch_name')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4 ">
+              <div class="form-group">
+                <label class="label">Branch Phone</label>
+                <input type="text" maxlength="10" min="0" trim="blur"  class="form-control"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone" nbInput
+                  fullWidth placeholder="Phone" required>
+                <mat-error *ngFor="let validation of formValidations.phone">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('phone')?.hasError(validation.type) && (addEditBranchForm.get('phone')?.dirty || addEditBranchForm.get('phone')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+                <mat-error *ngIf="addEditBranchForm.controls['phone'].hasError('pattern') ? false : addEditBranchForm.controls['phone'].hasError('minlength')">
+                  <p class="caption status-danger">
+                    Number must be 10 characters long.
+                  </p>   
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+           
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="label country State">City</label>
+                <nb-select class="select" formControlName="city_id" *ngFor="let city of cityList" placeholder="City"
+                  required>
+                  <nb-option [value]="city.id">{{city.city_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.city_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditBranchForm.get('city_id')?.hasError(validation.type) && (addEditBranchForm.get('city_id')?.dirty || addEditBranchForm.get('city_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="label country State">State</label>
+                <nb-select class="select" formControlName="state_id" *ngFor="let state of stateList" placeholder="State"
+                  required>
+                  <nb-option [value]="state.id">{{state.state_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.state_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditBranchForm.get('state_id')?.hasError(validation.type) && (addEditBranchForm.get('state_id')?.dirty || addEditBranchForm.get('state_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="lable country">Country</label>
+                <nb-select class="select" formControlName="country_id" *ngFor="let country of countryList"
+                  placeholder="Country" required>
+                  <nb-option [value]="country.id">{{country.country_name}}</nb-option>
+                </nb-select>
+              </div>
+              <mat-error class="select-error-option" *ngFor="let validation of formValidations.country_id">
+                <p class="caption status-danger"
+                  *ngIf="addEditBranchForm.get('country_id')?.hasError(validation.type) && (addEditBranchForm.get('country_id')?.dirty || addEditBranchForm.get('country_id')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row row-padding">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Branch Address</label>
+                <input type="text" trim="blur" maxlength="245" class="form-control" formControlName="branch_address" nbInput fullWidth id="inputEmail"
+                  placeholder="Branch Address" required>
+                <mat-error *ngFor="let validation of formValidations.branch_address">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('branch_address')?.hasError(validation.type) && (addEditBranchForm.get('branch_address')?.dirty || addEditBranchForm.get('branch_address')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Zip Code</label>
+                <input type="text" trim="blur" class="form-control" maxlength="6" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                  formControlName="zip_code" nbInput fullWidth placeholder="Zip Code" required>
+                <mat-error *ngFor="let validation of formValidations.zip_code">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('zip_code')?.hasError(validation.type) && (addEditBranchForm.get('zip_code')?.dirty || addEditBranchForm.get('zip_code')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-padding">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Branch GST No</label>
+                <input type="text"  trim="blur" maxlength="15" class="form-control" formControlName="branch_gst_no" nbInput fullWidth placeholder="Branch GST No"
+                  required>
+                <mat-error *ngFor="let validation of formValidations.branch_gst_no">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('branch_gst_no')?.hasError(validation.type) && (addEditBranchForm.get('branch_gst_no')?.dirty || addEditBranchForm.get('branch_gst_no')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+        
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="label">Working Hours</label>
+                <textarea type="text" maxlength="235" trim="blur" class="form-control" formControlName="working_hours" nbInput fullWidth placeholder="Working Hours"
+                  required>
+                </textarea>
+                <mat-error *ngFor="let validation of formValidations.working_hours">
+                  <p class="caption status-danger"
+                    *ngIf="addEditBranchForm.get('working_hours')?.hasError(validation.type) && (addEditBranchForm.get('working_hours')?.dirty || addEditBranchForm.get('working_hours')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group upload-branch-btn">
+                <ng-container *ngIf="is_add">
+                  <button nbButton status="primary" outline (click)="openUploadFileModal('addMode')">
+                    <span  class="m_title">{{isFileFound ? 'View files' : 'Choose files'}}</span>
+                  </button>
+                  <span *ngIf="!isFileFound">
+                    No file chosen
+                  </span>
+                <ng-container *ngIf="getFiles && isFileFound">
+                  <span>
+                    {{getFiles.length}} files uploaded
+                  </span>
+                </ng-container>
+                </ng-container>
+            
+                <ng-container *ngIf="branchId">
+                <button  nbButton status="primary" outline (click)="openUploadFileModal('editMode')">
+                  <span class="m_title">{{fileList ? 'View files' : 'Choose files'}}</span>
+                </button>
+                <span *ngIf="!fileList">
+                  No file chosen
+                </span>
+                <span *ngIf="fileList">
+                  {{fileList}} files uploaded
+                </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="label">Terms And Condition</label>
+                <!-- <ngx-tiny-mce id="texteditor" ></ngx-tiny-mce> -->
+                <div class="editor">
+                  <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                  </ngx-editor-menu>
+                  <ngx-editor [editor]="editor" maxlength="4000" formControlName="terms_and_condition">
+                  </ngx-editor>
+                </div>
+                <mat-error *ngIf="isTextEditior">
+                  <p class="caption status-danger">
+                    Terms and condition is required
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-branch-next-btn">
+            <button nbButton disabled status="" nbStepperNext>BACK</button>
+            <span class="next-btn">
+              <button nbButton nbStepperNext (click)="next('company_details')">NEXT</button>
+            </span>
+          </div>
+         </form>
+        </nb-step>
+
+       <!-- step -2 Person Details -->
+        <nb-step [stepControl]="personDetailsForm" [label]="labelTwo">
+         <form [formGroup]="personDetailsForm">
+          <ng-template #labelTwo>Person Details</ng-template>
+          <!-- <p class="company-tilte">{{branchId ? 'Edit Person' : 'Add Person'}}</p> -->
+          <div class="row">
+            <div [class]="branchId ?' col-md-4' : 'col-md-6'">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">Person Name</label>
+                <input type="text"  trim="blur" maxlength="50" class="form-control" formControlName="contact_person_name" nbInput fullWidth placeholder=" Person Name" required>
+                <mat-error *ngFor="let validation of formValidations.contact_person_name">
+                  <p class="caption status-danger"
+                    *ngIf="personDetailsForm.get('contact_person_name')?.hasError(validation.type) && (personDetailsForm.get('contact_person_name')?.dirty || personDetailsForm.get('contact_person_name')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+
+            <ng-container   *ngIf="branchId ? true : false">
+              <div [class]="branchId ?' col-md-4' : 'col-md-6'">
+                <div class="form-group">
+                  <label class="label">Email</label>
+                  <input type="text"  trim="blur" class="form-control" formControlName="email" nbInput fullWidth placeholder="Email" required>
+                  <mat-error *ngFor="let validation of formValidations.email">
+                    <p class="caption status-danger"
+                      *ngIf="personDetailsForm.get('email')?.hasError(validation.type) && (personDetailsForm.get('email')?.dirty || personDetailsForm.get('email')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+              </div>
+            </ng-container>
+           
+            <div [class]="branchId ?' col-md-4' : 'col-md-6'">
+              <div class="form-group">
+                <label class="label">Person Phone</label>
+                <input type="text" maxlength="10" min="0" trim="blur" class="form-control"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="contact_phone"
+                  nbInput fullWidth placeholder="Person Phone" required>
+                <mat-error *ngFor="let validation of formValidations.contact_phone">
+                  <p class="caption status-danger"
+                    *ngIf="personDetailsForm.get('contact_phone')?.hasError(validation.type) && (personDetailsForm.get('contact_phone')?.dirty || personDetailsForm.get('contact_phone')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error>
+                <mat-error *ngIf="personDetailsForm.controls['contact_phone'].hasError('pattern') ? false : personDetailsForm.controls['contact_phone'].hasError('minlength')">
+                  <p class="caption status-danger">
+                    Number must be 10 characters long.
+                  </p>   
+                </mat-error>
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="prev-next-btn">
+            <button nbButton nbStepperPrevious >BACK</button>
+            <span class="next-btn">
+              <button nbButton nbStepperNext (click)="next('person_details')">NEXT</button>
+            </span>
+          </div>
+         </form>
+        </nb-step>
+
+      <!-- step -3 Terms & Conditions -->
+        <!-- <nb-step [stepControl]="termsAndconditionForm" [label]="labelThird">
+         <form [formGroup]="termsAndconditionForm">
+          <ng-template #labelThird>Terms & Conditions</ng-template>
+          <p class="company-tilte">{{branchId ? 'Edit Terms And Condition' : 'Terms And Condition'}}</p>
+          <div class="row ">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="label">Terms And Condition</label>
+                <ngx-tiny-mce id="texteditor" #xyz></ngx-tiny-mce> 
+                <mat-error *ngIf="isTextEditior">
+                  <p class="caption status-danger">
+                    Terms And Condition is required
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="terms-prev-next-btn">
+            <button nbButton nbStepperPrevious >prev</button>
+            <span class="next-btn">
+              <button nbButton nbStepperNext (click)="next('terms_condition')">next</button>
+            </span>
+          </div>
+         </form>
+        </nb-step> -->
+
+
+   <!-- step -4 set branch password        -->
+  <nb-step [stepControl]="setPasswrodForm" [label]="labelFour"  *ngIf="branchId ? false : true">
+    <form [formGroup]="setPasswrodForm">
+        <!-- <ng-template #labelFour>Set Password</ng-template> -->
+        <p class="company-tilte">{{branchId ? 'Edit Password' : 'Set Password'}}</p>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Email</label>
+              <input type="text" trim="blur" class="form-control" formControlName="email" nbInput fullWidth placeholder="Email" required>
+              <mat-error *ngFor="let validation of formValidations.email">
+                <p class="caption status-danger"
+                  *ngIf="setPasswrodForm.get('email')?.hasError(validation.type) && (setPasswrodForm.get('email')?.dirty || setPasswrodForm.get('email')?.touched)">
+                  {{validation.message}}
+                </p>
+              </mat-error>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="label">Password</label>
+              <input type="{{showPassword ? 'text' : 'password'}}"  trim="blur" class="form-control" ng-model="password" formControlName="password" nbInput fullWidth  placeholder="Password" required>
+              <nb-icon type="button" class="pass-eye" (click)="isHideShow()" icon="{{showPassword ? 'eye' : 'eye-off'}}"></nb-icon>
+              
+              <mat-error class="caption status-danger" *ngIf="setPasswrodForm.get('password')?.invalid &&
+              (setPasswrodForm.get('password')?.touched || setPasswrodForm.get('password')?.dirty)">
+                 <p class="caption status-danger" *ngIf="setPasswrodForm.get('password')?.hasError('required')">
+                   Password is required
+                 </p>
+                 <p class="caption status-danger"  *ngIf="setPasswrodForm.get('password')?.hasError('passwordStrength')">
+                  {{setPasswrodForm.get('password')?.errors?.['passwordStrength']}}
+                 </p>
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="prev-next-btn">
+          <button nbButton nbStepperPrevious>BACK</button>
+          <span class="next-btn">
+            <button nbButton nbStepperNext (click)="next('set_password')">NEXT</button>
+          </span>
+        </div>
+       </form>
+      </nb-step>
+
+ <!--step -5 review & submit -->
+        <nb-step [label]="labelFive">
+          <ng-template #labelFive>Review & Submit</ng-template>
+          <p class="company-tilte label">Review & Submit</p>
+          <ng-container *ngIf="formData">
+            <nb-accordion>
+              <nb-accordion-item #item>
+                <nb-accordion-item-header>
+                  Branch Details
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+
+                  <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Company</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.company_Name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Branch Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.branch_address}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Phone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.phone}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">GST No.</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.branch_gst_no}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Address</p>
+                            <p class="text-muted mb-0">{{formData.branch_address}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">Country</p>
+                            <p class="text-muted mb-0">{{formData.country_Name}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">State</p>
+                            <p class="text-muted mb-0">{{formData.state_Name}}</p>
+                          </div>
+                          <div class="col-sm-2">
+                            <p class="mb-0 review-title label">City</p>
+                            <p class="text-muted mb-0">{{formData.city_Name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Pin Code</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.zip_code}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Uploaded Files</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" *ngIf="is_add"> {{ getFiles  ? getFiles.length : 0 }} </p>
+                            <p class="text-muted mb-0" *ngIf="branchId"> {{ fileList  ? fileList : 0 }} </p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 review-title label">Terms And Condition</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <div class="text-muted mb-0">
+                              <div [innerHtml]="formData.terms_and_condition"></div> 
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+
+              <!-- person details -->
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  Person Details
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+
+                  <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Person Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.contact_person_name}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Email</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.email}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 label">Phone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{formData.contact_phone}}</p>
+                          </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+          </ng-container>
+          <div class="Update-Submit-btn">
+            <button nbButton nbStepperPrevious>BACK</button>
+            <span class="next-btn">
+              <button nbButton [disabled]="isLoading"
+              [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+                {{branchId ? 'UPDATE' :'SAVE'}}</button>
+            </span>
+          </div>
+        </nb-step>
+  
+      </nb-stepper>
+  </nb-card-body>
+</nb-card>
+<!-- steper end -->

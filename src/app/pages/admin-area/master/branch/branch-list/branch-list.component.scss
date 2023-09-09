@@ -1,0 +1,31 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.add-branch {
+  float: right;
+  text-transform: capitalize;
+}
+nb-card-body {
+  flex: 1;
+  -ms-flex: 1 1 auto;
+  overflow: auto;
+  position: relative;
+  scrollbar-face-color: var(--card-scrollbar-color);
+  scrollbar-track-color: var(--card-scrollbar-background-color);
+}
+
+.title {
+  font-size: 17px;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+  color: #1e6bb8;
+}
+::ng-deep .edit-icon-branch.pointer {
+  font-size: 29px;
+  padding-left: 10px;
+}

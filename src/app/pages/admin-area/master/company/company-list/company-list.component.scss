@@ -1,0 +1,20 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.add-company {
+  float: right;
+  text-transform: capitalize;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted { color: #1e6bb8; }
+
+i.nb-edit { height: 26px; }
+
+::ng-deep .edit-icon-comapny.pointer {
+  font-size: 29px;
+  padding-left: 10px;
+}

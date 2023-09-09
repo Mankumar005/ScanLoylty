@@ -1,0 +1,11 @@
+<nb-card>
+    <nb-card-header>
+	<p class="delete-text">
+		{{message}}
+	</p>
+</nb-card-header>
+<nb-card-footer class="button-Style" >
+	<button nbButton  class="buttonDelete theme-btn"   (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
+	 <button nbButton  class="buttonCancle theme-btn"  (click)="cancel()" tabindex="-1">{{cancelButtonText}}</button>
+</nb-card-footer>
+</nb-card>

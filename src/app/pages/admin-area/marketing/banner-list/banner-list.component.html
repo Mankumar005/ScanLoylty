@@ -1,0 +1,12 @@
+<nb-card>
+    <nb-card-header class="page-title">
+        Banner List
+        <span *ngIf="onPermission?.create">
+            <button nbButton class="theme-btn" (click)="redirectToAddBanner()">Add Banner</button>
+        </span>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings" [source]="source">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

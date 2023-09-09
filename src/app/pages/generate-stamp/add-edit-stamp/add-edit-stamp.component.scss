@@ -1,0 +1,52 @@
+@import '../../../@theme/styles/styles.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+nb-card-body {
+    display: block;
+}
+.save_btn_save {
+    margin-left: 28px;
+}
+
+.remove-icon {
+  position: absolute;
+  left: 31%;
+  align-items: center;
+}
+span.remove-offer-image.ng-star-inserted {
+  position: relative;
+  bottom: 50px;
+  right: 9px;
+}
+tr.ng-star-inserted {
+  text-align: center;
+}
+.disabled-btn {
+  background-color: gray !important;
+}
+.caption.status-danger, .caption-2.status-danger {
+  display: flex;
+}
+p.caption.status-danger.pt-3.error-text.ng-star-inserted {
+  padding-left: 50px;
+}
+p.caption.status-danger.error-text.ng-star-inserted {
+  width: 100%;
+  max-width: 292px;
+  margin: auto;
+  padding: 5px 0;
+}
+.icon {
+  color: red;
+}
+.stamp_offer_des,
+.stamp_offer_img {
+  width: 100%;
+  max-width: 292px;
+  margin: auto;
+  min-height: 64px;
+}
+}

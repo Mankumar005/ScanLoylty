@@ -1,0 +1,88 @@
+<nb-card>
+    <nb-card-header class="page-title">
+        Banner
+        <span class="back-arow" (click)="back()">
+            <img src="assets/images/back-arow.png" height="15px" width="20px" /><span class="back-text">Back To
+                List</span>
+        </span>
+    </nb-card-header>
+
+    <nb-card-body class="title-border">
+        <form [formGroup]="bannerForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">Name</label>
+                        <input type="text" trim="blur" class="form-control" formControlName="banner_name" nbInput
+                            fullWidth placeholder="Name">
+                        <!-- <mat-error *ngFor="let validation of formValidations.banner_name">
+                  <p class="caption status-danger"
+                    *ngIf="bannerForm.get('banner_name')?.hasError(validation.type) && (bannerForm.get('banner_name')?.dirty || bannerForm.get('banner_name')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error> -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="label">Description</label>
+                        <textarea type="text" trim="blur" class="form-control" formControlName="banner_description"
+                            nbInput fullWidth placeholder="Description"> </textarea>
+                        <!-- <mat-error *ngFor="let validation of formValidations.banner_description">
+                  <p class="caption status-danger"
+                    *ngIf="bannerForm.get('banner_description')?.hasError(validation.type) && (bannerForm.get('banner_description')?.dirty || bannerForm.get('banner_description')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error> -->
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label Banner">Upload Banner</label>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="label">Height</label>
+                        <input type="text" trim="blur" maxlength="3" min="0" class="form-control" formControlName="banner_height" nbInput
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' fullWidth placeholder="Enter Height In Pexel">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="label">Width</label>
+                        <input type="text" trim="blur" maxlength="3" min="0" class="form-control" formControlName="banner_width" nbInput
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' fullWidth placeholder="Enter Width In Pexel">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <span *ngIf="imageUrl" class="remove-icon pointer" nbTooltip="Remove" nbTooltipPlacement="bottom">
+                        <i class='fa fa-remove dlt-icon' (click)="removeImg()" style='color: red'></i>
+                    </span>
+                    <img width="50%" *ngIf="imageUrl" [src]="imageUrl" class="image" height="50%">
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class="col-md-2">
+                    <input #ImageName accept="image/png, image/jpeg" type="file"
+                        (change)="handleFileInput($event.target.files)" />
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-md-4">
+                    <button nbButton [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+                        nbSpinnerSize="large" (click)="onSubmit()">
+                        Save
+                    </button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

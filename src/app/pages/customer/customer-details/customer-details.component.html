@@ -1,0 +1,68 @@
+<nb-card>
+    <nb-card-header class="page-title">
+        Customer Details
+        <span class="back-arow" (click)="back()">
+            <img src="assets/images/back-arow.png" height="15px" width="20px" /><span class="back-text">Back To
+                List</span>
+        </span>
+    </nb-card-header>
+    <nb-card-body class="title-border" *ngIf="customerDetials">
+        <div class="row">
+            <div class="col-sm-4">
+                <p fxFlex="33"><b class="custome-label">Name:</b> <span class="des_title"> {{customerDetials.name}}</span></p>
+            </div>
+            <div class="col-sm-4">
+                <p fxFlex="33"><b  class="custome-label">Email:</b> <span class="des_title"> {{customerDetials.email}}</span> </p>
+            </div>
+            <div class="col-sm-4">
+                <p fxFlex="33"><b  class="custome-label">Phone:</b> <span class="des_title"> {{customerDetials.phone}}</span> </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <p fxFlex="33"><b  class="custome-label">Date Of Birth: </b><span class="des_title"> {{customerDetials.date_of_birth ?
+                        customerDetials.date_of_birth : 'Not provided'}}</span></p>
+            </div>
+            <div class="col-sm-4" *ngIf="customerDetials.city_name">
+                <p fxFlex="33"><b  class="custome-label">City: </b><span class="des_title"> {{customerDetials.city_name}}</span></p>
+            </div>
+        </div>
+    </nb-card-body>
+
+    <!-- Trancstion List -->
+    <nb-card-body>
+        <hr>
+        <div class="page-title">
+            Transactions History
+        </div>
+        <div class="pt-4">
+            <nb-card>
+               <nb-card-header>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="label">Company
+                        </label>
+                        <ng-select [items]="companyList" bindLabel="company_name" (change)="getCompanyId($event)"
+                        class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+                        placeholder="Select Company">
+                      </ng-select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="label">Branch 
+                        </label>
+                        <ng-select [items]="branchList" bindLabel="branch_name" (change)="getBranchId($event)" [(ngModel)]="ngSelectedValue" [disabled]="isBranchView ? 'false' : 'ture'"
+                        class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+                        placeholder="Select Branch">
+                      </ng-select>
+                      </div>
+                    </div>
+                  </nb-card-header>
+                <nb-card-body>
+                    <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect"
+                        [settings]="settings" [source]="source">
+                    </ng2-smart-table>
+                </nb-card-body>
+            </nb-card>
+        </div>
+    </nb-card-body>
+</nb-card>

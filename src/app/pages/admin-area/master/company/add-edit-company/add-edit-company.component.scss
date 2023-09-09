@@ -1,0 +1,106 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.company-details {
+  font-size: 20px;
+  
+}
+
+.select {
+  // position: absolute;
+  top: 29px;
+}
+
+.disabled-previous {
+  color: gray;
+}
+.country {
+  position: absolute;
+  font-size: 12px;
+}
+
+.row-padding {
+  position: relative;
+  top: 25px;
+}
+
+.upload-btn {
+  position: absolute;
+  top: 32px;
+}
+
+.select-error {
+  top: 28px;
+  position: relative;
+}
+
+.select-error-option {
+  top: 13px;
+  position: relative;
+}
+
+nb-select { width: 100% !important; }
+
+nb-select.full-width { width: 100%; }
+
+nb-select.size-medium:not(.full-width) {
+  max-width: none;
+  position: relative;
+}
+
+.pass-eye {
+  position: absolute;
+  right: 26px;
+  top: 38px;
+}
+
+.m_title {
+  text-transform: capitalize;
+}
+
+.prev-next-btn {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.company-tilte {
+  text-align: center;
+  font-size: 16px;
+}
+
+.next-btn {
+  padding-left: 50px;
+}
+
+.parent {
+  border-top: 1px solid #000;
+  padding-top: 15px;
+}
+
+.child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.des_title {
+  color: rgb(0 0 0 / 71%);
+}
+
+.Update-Submit-btn {
+  padding-top: 35px;
+  text-align: center;
+}
+
+.State {
+  padding-top: 3px;
+}
+
+.company-next-btn {
+  padding-top: 35px;
+  text-align: center;
+}

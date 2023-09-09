@@ -1,0 +1,29 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+    nb-card {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.title-border {
+    border-top: 1px solid #0000002b;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.custome-label {
+    color: #0f377c !important;
+    font-weight: 700;
+}
+
+nb-select.appearance-outline.size-medium.status-basic.shape-rectangle.nb-transition {
+    padding-left: 10px;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}

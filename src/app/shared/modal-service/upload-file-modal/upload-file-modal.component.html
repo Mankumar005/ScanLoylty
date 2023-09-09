@@ -1,0 +1,32 @@
+<nb-card>
+  <div class='flex'>
+    <span class="card" *ngFor='let file of filesUrls; let index = index'>
+      <img [src]="file.url" height="20">
+      <i class='fa fa-remove dlt-icon' (click)="onRemoveFiles(file.id,index)" style='color: red'></i>
+    </span>
+    <span class="card" *ngFor='let url of urls; let index = index'>
+      <img [src]="url" height="20">
+      <i class='fa fa-remove dlt-icon' (click)="onRemoveCurrentFile(index,url)" style='color: red'></i>
+    </span>
+    <span class="add">
+      <label for="upload">
+        <span class="fa fa-plus"></span>
+        <input type='file' accept="image/png, image/jpeg" (change)="onSelectFile($event)" multiple hidden id="upload">
+        <p class="file-upload">Upload File</p>
+      </label>
+    </span>
+  </div>
+  <!-- <nb-card-footer class="upload-btn"> -->
+    <div class="pb-2">
+    <span class="upload-btn">
+    <span class="cancel">
+      <button nbButton (click)="cancel()">Cancel</button>
+    </span>
+    <span class="Upload">
+      <button *ngIf="mode === 'addMode'" nbButton (click)="upload()">Upload</button>
+      <button *ngIf="mode === 'editMode'" nbButton (click)="uploadFiles()">Upload</button>
+    </span>
+  </span>
+</div>
+  <!-- </nb-card-footer> -->
+</nb-card>

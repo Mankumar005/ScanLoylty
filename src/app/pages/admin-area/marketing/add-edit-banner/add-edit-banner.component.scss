@@ -1,0 +1,24 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.Banner {
+    font-size: 16px;
+}
+
+.remove-icon {
+  position: absolute;
+  left: 50%;
+  bottom: 99%;
+}
+// ::ng-deep ::file-selector-button {
+//     font-weight: 600;
+//     color: #0f377c !important;
+//     height: 25px;
+//     border: thin solid #0f377c;
+//     border-radius: 5px;
+//     cursor: pointer;
+// }

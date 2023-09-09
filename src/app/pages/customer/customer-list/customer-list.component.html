@@ -1,0 +1,21 @@
+<nb-card>
+    <nb-card-header class="page-title">
+      Customer List
+    </nb-card-header>
+    <nb-card-header *ngIf="userRole.role === 'SUPERADMIN'">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="label">Company
+          </label>
+          <ng-select [items]="companyList" bindLabel="company_name" (change)="getCompnayId($event)"
+          class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+          placeholder="Select Company">
+        </ng-select>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings" [source]="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>

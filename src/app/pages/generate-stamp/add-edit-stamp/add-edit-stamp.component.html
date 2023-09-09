@@ -1,0 +1,242 @@
+<nb-card>
+    <nb-card-header class="page-title">
+        Generate Stamp
+        <span class="back-arow" (click)="back()">
+            <img src="assets/images/back-arow.png" height="15px" width="20px" /><span class="back-text">Back To
+                List</span>
+        </span>
+    </nb-card-header>
+    <nb-card-body class="title-border">
+        <form [formGroup]="generateStampForm" (keydown.enter)="$event.preventDefault()">
+            <div class="pt-3">
+                <div class="form-group row ">
+                    <label class="label col-sm-3 form-control-label">Company
+                        <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-6">
+                        <ng-select [items]="companyList" bindLabel="company_name" (change)="changeFn($event)"
+                            class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+                            placeholder="Select Company" formControlName="company_id" required>
+                        </ng-select>
+                            <mat-error class="select-error-option"
+                            *ngFor="let validation of formValidations.company_id">
+                            <p class="caption status-danger"
+                                *ngIf="generateStampForm.get('company_id')?.hasError(validation.type) && (generateStampForm.get('company_id')?.dirty || generateStampForm.get('company_id')?.touched)">
+                                {{validation.message}}
+                            </p>
+                        </mat-error>
+                    </div>
+                </div>
+                <!-- <div class="form-group row ">
+                    <label class="label col-sm-3 form-control-label">Branch
+                        <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-6">
+                        <ng-select [items]="branchList" bindLabel="branch_name"
+                            class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="id"
+                            placeholder="Select Branch" formControlName="branch_id" >
+                        </ng-select>
+                            <mat-error class="select-error-option"
+                            *ngFor="let validation of formValidations.branch_id">
+                            <p class="caption status-danger"
+                                *ngIf="generateStampForm.get('branch_id')?.hasError(validation.type) && (generateStampForm.get('branch_id')?.dirty || generateStampForm.get('branch_id')?.touched)">
+                                {{validation.message}}
+                            </p>
+                        </mat-error>
+                    </div>
+                </div> -->
+                <div class="form-group row ">
+                    <label class="label col-sm-3 form-control-label">Stamp Cycle Name
+                        <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-6">
+                        <input type="text" maxlength="100" formControlName="stamp_cycle_name" class="form-control"
+                            trim="blur" nbInput fullWidth placeholder="Stamp Cycle Name" required>
+                        <mat-error class="select-error-option"
+                            *ngFor="let validation of formValidations.stamp_cycle_name">
+                            <p class="caption status-danger"
+                                *ngIf="generateStampForm.get('stamp_cycle_name')?.hasError(validation.type) && (generateStampForm.get('stamp_cycle_name')?.dirty || generateStampForm.get('stamp_cycle_name')?.touched)">
+                                {{validation.message}}
+                            </p>
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="label col-sm-3 form-control-label">No Of Stamp/Cycle
+                        <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" maxlength="2" formControlName="stamp_cycle_no" class="form-control"
+                            pattern="^[1-9][0-9]*$" oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';"
+                            trim="blur" nbInput fullWidth placeholder="No Of  Stamp/Cycle" required>
+                        <mat-error class="select-error-option"
+                            *ngFor="let validation of formValidations.stamp_cycle_no">
+                            <p class="caption status-danger"
+                                *ngIf="generateStampForm.get('stamp_cycle_no')?.hasError(validation.type) && (generateStampForm.get('stamp_cycle_no')?.dirty || generateStampForm.get('stamp_cycle_no')?.touched)">
+                                {{validation.message}}
+                            </p>
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-4">
+                    <button nbButton (click)="onConfirmGenerateStamp()">
+                        Generate Stamp
+                    </button>
+                </div>
+            </div>
+            <!-- *ngIf="isGenerateStampData" -->
+            <div class="row pt-3" *ngIf="isGenerateStampData">
+                <div class="col-lg-12">
+                    <div class="archives-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            No.
+                                            <span class="sort-icons"></span>
+                                        </th>
+                                        <th class="text-center">
+                                            Is Offer
+                                            <span class="sort-icons"></span>
+                                        </th>
+                                        <th class="text-center">
+                                            Offer Description
+                                            <span class="sort-icons"></span>
+                                        </th>
+                                        <th class="text-center">
+                                            Offer Image
+                                            <span class="sort-icons"></span>
+                                        </th>
+                                        <!-- <th class="text-center">
+                                                    Action
+                                                </th> -->
+                                    </tr>
+                                </thead>
+                <tbody>
+                    <tr formArrayName="stampCycleArray"
+                        *ngFor="let stamp of generateStampForm.get('stampCycleArray')?.controls; let i = index">
+                        <ng-container [formGroupName]="i">
+                            <td valign="middle">
+                                {{i + 1 }}
+                                <input nbInput type="hidden" name=likeQuote [ngModel]="i + 1"
+                                    formControlName="stamp_sequence_no">
+                            </td>
+                            <td valign="middle">
+                                <nb-checkbox (change)="isCheckBox($event.target.checked,i)"
+                                    formControlName="is_offer"></nb-checkbox>
+                            </td>
+                            <td>
+                                <textarea type="text" maxlength="100"
+                                    formControlName="offer_description"
+                                    class="form-control stamp_offer_des" trim="blur" nbInput fullWidth
+                                    placeholder="Offer Description"
+                                    [readonly]="!generateStampForm.controls['stampCycleArray'].controls[i].controls.is_offer.value"></textarea>
+                                <mat-error class="select-error-option"
+                                    *ngFor="let validation of formValidations.offer_description">
+                                    <p class="caption status-danger error-text"
+                                        *ngIf="generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_description?.hasError('required') && (generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_description?.dirty || generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_description?.touched)">
+                                        {{validation.message}}
+                                    </p>
+                                </mat-error>
+                            </td>
+                            <td>
+                                <ng-container
+                                    *ngIf="!generateStampForm.controls['stampCycleArray'].controls[i].controls.is_offer?.value">
+                                    <ng-container
+                                        *ngIf="!generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value">
+                                        <input type="file" class="pt-4 stamp_offer_img"
+                                            accept="image/png, image/gif, image/jpeg"
+                                            (change)="onSelectFile($event,i)"
+                                            [disabled]="!generateStampForm.controls['stampCycleArray'].controls[i].controls.is_offer?.value">
+                                        <mat-error class="select-error-option  pt-3"
+                                            *ngFor="let validation of formValidations.offer_image">
+                                            <p class="caption status-danger error-text"
+                                                *ngIf="generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.hasError('required') && (generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.dirty || generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.touched)">
+                                                {{validation.message}}
+                                            </p>
+                                        </mat-error>
+                                    </ng-container>
+                                </ng-container>
+
+                                <ng-container
+                                    *ngIf="generateStampForm.controls['stampCycleArray'].controls[i].controls.is_offer?.value">
+                                    <ng-container
+                                        *ngIf="!generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value">
+                                        <input type="file" class="pt-4 stamp_offer_img"
+                                            accept="image/png, image/gif, image/jpeg"
+                                            (change)="onSelectFile($event,i)"
+                                            [disabled]="!generateStampForm.controls['stampCycleArray'].controls[i].controls.is_offer?.value">
+                                        <mat-error class="select-error-option  pt-3"
+                                            *ngFor="let validation of formValidations.offer_image">
+                                            <p class="caption status-danger error-text"
+                                                *ngIf="generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.hasError('required') && (generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.dirty || generateStampForm.controls['stampCycleArray'].controls[i].controls.offer_image?.touched)">
+                                                {{validation.message}}
+                                            </p>
+                                        </mat-error>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value">
+                                    <img [src]="generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value ? 
+                                         generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value : generateStampForm.controls['stampCycleArray'].controls[i].controls.image_url.value"
+                                      width="100px"  height="100px">
+                                    <span class="remove-offer-image" (click)="removeOfferImage(i)">
+                                        <nb-icon class="icon pointer" icon="close-outline"
+                                            nbTooltip="Remove" nbTooltipPlacement="bottom"></nb-icon>
+                                    </span>
+                                </ng-container>
+                                <!-- <ng-container *ngIf="stampId">
+                        <ng-container *ngIf="generateStampData.stamp_cycle_detail[i].image">
+                            <img [src]="generateStampData.stamp_cycle_detail[i].image"  height="100px">  
+                            <span class="remove-offer-image" (click)="removeOfferImage(i)">
+                                <nb-icon class="icon pointer" icon="close-outline" nbTooltip="Remove" nbTooltipPlacement="bottom"></nb-icon>
+                            </span>
+                        </ng-container>
+                        <ng-container *ngIf="!generateStampData.stamp_cycle_detail[i].image">
+                            <input type="file"  accept="image/png, image/gif, image/jpeg" 
+                            (change)="onSelectFile($event,i)" #getFile >
+                        </ng-container>
+                        </ng-container> -->
+                            </td>
+                            <!-- <td>
+                    <button nbButton class="remove-btn-icon"  *ngIf="getControls().length > 1" (click)="removeStemp(i)"
+                           >Delete</button>
+                    </td> -->
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <span *ngIf="isShowError" class="caption status-danger custome-error">
+                Offer is required
+            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row" *ngIf="isGenerateStampData">
+            <div class="col-md-12">
+                <p><b class="custome-label">Note:</b> <span class="des_title"> Click on the checkbox
+                        able to write a description and upload the file</span></p>
+            </div>
+        </div>
+        <!-- *ngIf="isGenerateStampData" -->
+        <div class="row" *ngIf="isGenerateStampData">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-2">
+                <button nbButton [disabled]="!generateStampForm.valid && !isDisabled"
+                    [ngClass]="!generateStampForm.valid ? '' : 'theme-btn'"
+                    [status]="!generateStampForm.valid  ? '' : 'theme-btn'" [nbSpinner]="isLoading"
+                    nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

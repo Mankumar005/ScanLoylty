@@ -1,0 +1,92 @@
+
+<nb-card >
+    <nb-card-header class="page-title">
+        Scan & Get Details
+    <span>
+        <button nbButton class="new-scan" (click)="newScan()">New Scan</button>
+    </span>
+    </nb-card-header>
+  
+    <nb-card-body class="title-border" >
+     <form  [formGroup]="scanAndDetailsForm" (keydown.enter)="$event.preventDefault()">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label BarCode">Enter QR Code</label>
+            <input type="text" formControlName="stamp_token" maxlength="10" class="form-control" trim="blur" nbInput fullWidth placeholder="Enter QR Code" required>
+            <mat-error *ngFor="let validation of formValidations.stamp_token">
+              <p class="caption status-danger"
+                *ngIf="scanAndDetailsForm.get('stamp_token')?.hasError(validation.type) && (scanAndDetailsForm.get('stamp_token')?.dirty || scanAndDetailsForm.get('stamp_token')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+        </div>  
+      <div class="scan-btn">
+        <div class="row">
+        <div class="col-md-4"></div>
+          <div class="col-md-4">
+              <button nbButton [disabled]="isLoading"
+              [nbSpinner]="isLoading" trim="blur" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()" >
+                 Scan
+              </button>
+          </div>
+        <div class="col-md-4"></div>
+        </div>
+      </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+      <hr>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+                <label class="label">Bill Amount</label>
+                <input type="text" trim="blur" class="form-control"  maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="billing_amount" nbInput
+                  fullWidth placeholder="Bill Amount" >
+                <!-- <mat-error *ngFor="let validation of formValidations.billing_amount">
+                  <p class="caption status-danger"
+                    *ngIf="scanAndDetailsForm.get('billing_amount')?.hasError(validation.type) && (scanAndDetailsForm.get('billing_amount')?.dirty || scanAndDetailsForm.get('billing_amount')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error> -->
+              </div>  
+        </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="label">Bill Description / Comment</label>
+                <textarea type="text" class="form-control"  maxlength="200"  formControlName="billing_description" nbInput  fullWidth placeholder="Bill Description" > </textarea>
+                <!-- <mat-error *ngFor="let validation of formValidations.billing_description">
+                  <p class="caption status-danger"
+                    *ngIf="scanAndDetailsForm.get('billing_description')?.hasError(validation.type) && (scanAndDetailsForm.get('billing_description')?.dirty || scanAndDetailsForm.get('billing_description')?.touched)">
+                    {{validation.message}}
+                  </p>
+                </mat-error> -->
+              </div>  
+            </div>
+        </div>
+    </form>
+
+    </nb-card-body>
+
+    <!-- Trancstion List -->
+    <nb-card-body *ngIf="scannigData.length " class="p-0">
+    <hr>
+        <div class="scannig-history">
+          Scanning History 
+        </div>
+        <div class="pt-3" >
+              <nb-card>
+              <nb-card-body>
+                  <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings" [source]="source" >
+                  </ng2-smart-table>
+                </nb-card-body>
+              </nb-card>
+        </div>
+    </nb-card-body>
+  </nb-card>
+ 
+<nb-card>
+ <!-- For camera -->
+ <!-- <ngx-qrcode [(qrc-value)]="createdCode"></ngx-qrcode> -->
+</nb-card>

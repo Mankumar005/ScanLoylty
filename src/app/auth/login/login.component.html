@@ -1,0 +1,50 @@
+ 
+<h1 id="title" class="login-text title">Log In</h1>
+ 
+<form [formGroup]="loginForm" aria-labelledby="title">
+  <div class="form-control-group">
+    <label class="label" for="input-email">Email address:</label>
+    <input class="login-input" nbInput fullWidth  formControlName="email" trim="blur" class="form-control"
+    placeholder="Email address"
+    fieldSize="large">
+    <mat-error  *ngFor="let validation of formValidations.email">
+      <p class="caption status-danger" *ngIf="loginForm.get('email')?.hasError(validation.type) && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        {{validation.message}}
+      </p>
+    </mat-error>
+  </div>
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">Password:</label>
+      <!-- <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a> -->
+    </span>
+    <input class="login-input" nbInput  fullWidth formControlName="password" trim="blur" ng-model="password" class="form-control"
+    placeholder="Password" type="{{showPassword ? 'text' : 'password'}}"
+    fieldSize="large">
+    <mat-error class="caption status-danger" *ngIf="loginForm.get('password')?.invalid &&
+      (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+         <p class="caption status-danger" *ngIf="loginForm.get('password')?.hasError('required')">
+           Password is required
+         </p>
+         <p class="caption status-danger"  *ngIf="loginForm.get('password')?.hasError('passwordStrength')">
+          {{loginForm.get('password')?.errors?.['passwordStrength']}}
+         </p>
+      </mat-error>
+      <nb-checkbox  class="show-password-chackbox" (click)="isHideShow()"> <span class="show-password">Show Password</span></nb-checkbox>
+  </div>
+
+  <div class="form-control-group accept-group">
+    <!-- <nb-checkbox name="rememberMe">Remember me</nb-checkbox> -->
+  </div>
+
+  <button nbButton fullWidth [disabled]="isLoading"
+  size="large" 
+  [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+    Log In
+  </button>
+</form>
+
+<!-- <section class="another-action" aria-label="Register">
+  Don't have an account? <a class="text-link" routerLink="../register">Register</a>
+</section> -->

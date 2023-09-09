@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="lable country">Select Company</label>
+                <nb-select selected="" (selectedChange)="getSelectedCompanyId($event)"
+                    placeholder="Company ">
+                    <nb-option value="">All Company</nb-option>
+                    <nb-option *ngFor="let company of customerCompanylist" [value]="company.company_id">
+                        {{company.company_name}}</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-6">
+                <label class="lable country">Select Branch</label>
+                <nb-select selected="" [(ngModel)]="selectBranchValue"
+                    (selectedChange)="getSelectedBranchId($event)" placeholder="Branch">
+                    <nb-option value="">All Branch</nb-option>
+                    <nb-option *ngFor="let branch of customerBranchlist" [value]="branch.branch_id">
+                        {{branch.branch_name}}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

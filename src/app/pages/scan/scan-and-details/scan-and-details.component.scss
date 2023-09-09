@@ -1,0 +1,52 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.new-scan {
+  float: right;
+  text-transform: capitalize;
+}
+
+button.select-button.placeholder {
+  border-color: #b4b6bb !important;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+  color: #1e6bb8;
+}
+
+button.select-button {
+  border-color: #b4b6bb !important;
+}
+
+.token_text {
+  color: green;
+  padding-top: 6px;
+  position: absolute;
+}
+
+.BarCode {
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  left: 10%;
+  font-weight: 700 !important;
+  font-size: 15px;
+}
+
+.scan-btn {
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  left: 10%;
+}
+
+.scannig-history {
+  font-size: 17px;
+  font-weight: 600 !important;
+  padding-left: 27px;
+}

@@ -1,0 +1,80 @@
+nb-card {
+   margin: auto;
+  //  height: 29vh;
+   width: 140vh;
+ }
+
+ .flex {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 12px;
+ }
+
+ .card img {
+   width: 100px;
+   height: 100px;
+   border: 1px solid #d9d9d9;
+   border-radius: 5px;
+   margin-right: 1px;
+ }
+
+ .card {
+   position: relative;
+   // display:contents; 
+   flex-direction: column;
+   min-width: 0;
+   word-wrap: break-word;
+   background-color: #fff;
+   background-clip: border-box;
+   border: 1px solid rgba(0, 0, 0, 0.125);
+   border-radius: 0.25rem;
+ }
+
+ .add {
+   width: 100px;
+   height: 100px;
+   border: 1px solid #d9d9d9;
+   border-radius: 5px;
+   margin-top: 7px;
+   margin-left: 7px;
+ }
+
+ .add .fa {
+   cursor: pointer;
+   padding: 28px;
+   font-size: 3em;
+ }
+
+//  .upload-btn {
+
+//  }
+
+ .upload-btn {
+  position: static;
+  padding-left: 18%;
+ }
+ .cancel {
+   padding-left: 182px;
+ }
+
+ .Upload {
+   padding-left: 37px;
+   position: absolute;
+ }
+
+ .file-upload {
+   position: absolute;
+   padding-left: 13px;
+ }
+
+ .dlt-icon {
+   color: red;
+   padding-left: 46px;
+   cursor: pointer;
+ }
+
+ span.card.ng-star-inserted {
+   padding: 5px 3px;
+   margin: 5px;
+   
+ }
