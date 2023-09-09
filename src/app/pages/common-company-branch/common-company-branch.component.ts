@@ -36,8 +36,7 @@ export class CommonCompanyBranchComponent implements OnInit,OnDestroy {
   }
 
   public getCustomerCompanylist() {
-    this.subscription.push(this.commonService.getAllCompanys().subscribe(
-      (res: any) => {
+    this.subscription.push(this.commonService.getAllCompanys().subscribe((res: any) => {
         this.customerCompanylist = res.data;
       },
       (error) => {
